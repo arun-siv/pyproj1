@@ -16,3 +16,12 @@ headers = {
 
 response = requests.get(url='https://www.nseindia.com/api/chart-databyindex?index=RELIANCEEQN',headers=headers)
 # %%
+reliance = pd.DataFrame(response.json()['grapthData'])
+# %%
+reliance.columns = ['timestamp', 'price']
+
+#%%
+reliance['timestamp'] = pd.to_datetime(reliance['timestamp'],unit='ms')
+# %%
+reliance.plot(x='timestamp',y='price')
+# %%
